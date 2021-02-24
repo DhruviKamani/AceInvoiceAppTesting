@@ -1,0 +1,24 @@
+{
+  "name": "AceInvoiceAppTesting",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DhruviKamani/AceInvoiceAppTesting.git"
+  },
+  "keywords": [],
+  "author": "Kelvin Kamani <kamani_kelvin@yahoo.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DhruviKamani/AceInvoiceAppTesting/issues"
+  },
+  "homepage": "https://github.com/DhruviKamani/AceInvoiceAppTesting#readme",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^6.5.0",
+    "cypress-xpath": "^1.6.2"
+  }
+}
