@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 
-import * as navigationBar from "../Common/NavigationBar";
-import * as addClientPage from "../Pages/AddClientPage";
-import * as addProjectPage from "../Pages/AddProjectPage";
-import * as clientsPage from "../Pages/ClientsPage";
-import * as editProjectPage from "../Pages/EditProjectPage";
-import * as loginPage from '../Pages/LoginPage';
-import * as projectDetailsPage from "../Pages/ProjectDetailsPage";
-import * as projectsPage from "../Pages/ProjectsPage";
-import * as timeTrackingPage from "../Pages/TimeTrackingPage";
+import NavigationBar from "../Common/NavigationBar";
+import AddClientPage from "../Pages/AddClientPage";
+import AddProjectPage from "../Pages/AddProjectPage";
+import ClientsPage from "../Pages/ClientsPage";
+import EditProjectPage from "../Pages/EditProjectPage";
+import LoginPage from '../Pages/LoginPage';
+import ProjectDetailsPage from "../Pages/ProjectDetailsPage";
+import ProjectsPage from "../Pages/ProjectsPage";
+import TimeTrackingPage from "../Pages/TimeTrackingPage";
 
 describe('Testing of AceInvoice App', () => {
 
@@ -32,32 +32,32 @@ describe('Testing of AceInvoice App', () => {
     it('Should be able to login', () => {
         cy.visit("https://qa.aceinvoice.com/");
 
-        loginPage.verifyLoginPage();
-        loginPage.login(emailId, password);
+        LoginPage.verifyLoginPage();
+        LoginPage.login(emailId, password);
 
-        timeTrackingPage.verifyTimeTrackingPage();
+        TimeTrackingPage.verifyTimeTrackingPage();
     });
 
     it("Should be able to add new client if doesn't exist", () => {
-        navigationBar.navigateToClientsPage();
-        clientsPage.verifyClientsPage();
+        NavigationBar.navigateToClientsPage();
+        ClientsPage.verifyClientsPage();
 
-        clientsPage.verifyIfClientExist(projectDetails.clientName, exists => {
+        ClientsPage.verifyIfClientExist(projectDetails.clientName, exists => {
             projectDetails.clientExists = exists;
             if (exists)
                 return;
-            clientsPage.clickAddNewClientButton();
-            addClientPage.verifyNewClientsPage();
-            addClientPage.addNewClient(projectDetails.clientName);
+            ClientsPage.clickAddNewClientButton();
+            AddClientPage.verifyNewClientsPage();
+            AddClientPage.addNewClient(projectDetails.clientName);
         })
     });
 
     it("Should check if project exist", () => {
         if (projectDetails.clientExists) {
-            navigationBar.navigateToProjectsPage();
-            projectsPage.verifyProjectsPage();
+            NavigationBar.navigateToProjectsPage();
+            ProjectsPage.verifyProjectsPage();
 
-            projectsPage.verifyIfProjectExist(projectDetails.projectName, projectDetails.clientName, exists => {
+            ProjectsPage.verifyIfProjectExist(projectDetails.projectName, projectDetails.clientName, exists => {
                 projectDetails.projectExist = exists;
             })
         }
@@ -65,27 +65,27 @@ describe('Testing of AceInvoice App', () => {
 
     it("Should add project and verify details", () => {
         if (!projectDetails.projectExist) {
-            projectsPage.clickAddNewProjectButton();
-            addProjectPage.verifyAddProjectPage();
-            addProjectPage.addProject(projectDetails);
+            ProjectsPage.clickAddNewProjectButton();
+            AddProjectPage.verifyAddProjectPage();
+            AddProjectPage.addProject(projectDetails);
 
-            projectDetailsPage.verifyProjectDetailsPage();
-            projectDetailsPage.verifyProjectDetails(projectDetails);
+            ProjectDetailsPage.verifyProjectDetailsPage();
+            ProjectDetailsPage.verifyProjectDetails(projectDetails);
         }
     })
 
     it("Should take edited values", () => {
         if (projectDetails.projectExist) {
-            projectsPage.selectProject(projectDetails.projectName, projectDetails.clientName);
+            ProjectsPage.selectProject(projectDetails.projectName, projectDetails.clientName);
         }
 
-        projectDetailsPage.verifyProjectDetailsPage();
-        projectDetailsPage.clickEditButton();
+        ProjectDetailsPage.verifyProjectDetailsPage();
+        ProjectDetailsPage.clickEditButton();
 
-        editProjectPage.verifyEditProjectPage();
-        editProjectPage.editDetails(newProjectDetails);
+        EditProjectPage.verifyEditProjectPage();
+        EditProjectPage.editDetails(newProjectDetails);
 
-        projectDetailsPage.verifyProjectDetailsPage();
-        projectDetailsPage.verifyEditedProjectDetails(newProjectDetails);
+        ProjectDetailsPage.verifyProjectDetailsPage();
+        ProjectDetailsPage.verifyEditedProjectDetails(newProjectDetails);
     });
 });
